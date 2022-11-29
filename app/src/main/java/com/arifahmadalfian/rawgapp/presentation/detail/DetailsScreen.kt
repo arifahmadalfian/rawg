@@ -32,7 +32,7 @@ fun DetailsScreen(
         mutableStateOf(GameDetailDto())
     }
 
-    var isFavorite by remember {
+    val isFavorite: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
 
@@ -45,8 +45,7 @@ fun DetailsScreen(
     viewModel.favoriteGames.collectAsState(initial = emptyList()).value.let { list ->
         list.forEach { game ->
             if (game.id == gameId) {
-                isFavorite = true
-                Timber.d("isFavorite: $isFavorite")
+                isFavorite.value = true
             }
         }
     }
@@ -72,6 +71,7 @@ fun DetailsScreen(
             scrollState = scrollState,
             isFavorite = isFavorite,
             onFavoriteClicked = {
+                isFavorite.value = it
                 if (it) {
                     viewModel.addGameFavorite(gameDetails.toGameEntity())
                 } else {

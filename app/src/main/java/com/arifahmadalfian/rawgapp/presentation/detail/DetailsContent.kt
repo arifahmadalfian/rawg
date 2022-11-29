@@ -255,7 +255,7 @@ fun ContentDescription(title: String, content: @Composable () -> Unit) {
 fun AnimatedToolBar(
     gameDetail: GameDetailDto?,
     scrollState: ScrollState,
-    isFavorite: Boolean,
+    isFavorite: State<Boolean>,
     onFavoriteClicked: (Boolean) -> Unit,
     onBack: () -> Unit
 ) {
@@ -308,7 +308,7 @@ fun AnimatedToolBar(
                 ),
             onClick = {
                 if (gameDetail != null) {
-                    onFavoriteClicked(!isFavorite)
+                    onFavoriteClicked(!isFavorite.value)
                 }
             }
         ) {
@@ -316,7 +316,7 @@ fun AnimatedToolBar(
                 modifier = Modifier
                     .padding(2.dp),
                 imageVector = Icons.Default.Favorite,
-                tint = if (isFavorite) Color.Red else Color.White,
+                tint = if (isFavorite.value) Color.Red else Color.White,
                 contentDescription = null
             )
         }
