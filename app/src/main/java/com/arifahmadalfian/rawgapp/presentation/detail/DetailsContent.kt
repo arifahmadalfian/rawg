@@ -300,10 +300,6 @@ fun AnimatedToolBar(
                 .alpha(((scrollState.value + 0.4f) / 1000).coerceIn(0f, 1f))
         )
 
-        var favorite by remember {
-            mutableStateOf(isFavorite)
-        }
-
         IconButton(
             modifier = Modifier
                 .clip(CircleShape)
@@ -312,8 +308,7 @@ fun AnimatedToolBar(
                 ),
             onClick = {
                 if (gameDetail != null) {
-                    favorite = !favorite
-                    onFavoriteClicked(favorite)
+                    onFavoriteClicked(!isFavorite)
                 }
             }
         ) {
@@ -321,7 +316,7 @@ fun AnimatedToolBar(
                 modifier = Modifier
                     .padding(2.dp),
                 imageVector = Icons.Default.Favorite,
-                tint = if (favorite) Color.Red else Color.White,
+                tint = if (isFavorite) Color.Red else Color.White,
                 contentDescription = null
             )
         }
